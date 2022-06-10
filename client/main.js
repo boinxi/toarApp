@@ -1,13 +1,23 @@
 var loadedAds = false;
 var ads;
+const screenID = 3;
+var calledDoIt = false;
 
 function start() {
-    $.ajax({
-        url: "http://localhost:8080/screen/1",
-        success: function (result) {
-            console.log('result', result);
-            ads = JSON.parse(result);
+    $("#screenIdHeader").html("screenID: " + screenID.toString());
+
+    var socket = io();
+    socket.emit('screenId', screenID);
+    socket.on('msg', function (msg) {
+        console.log("got from server", msg)
+    });
+    socket.on('data', function (data) {
+        console.log("DATATAA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", data)
+        ads = data;
+        if (!calledDoIt) {
             doIt();
+            console.log('called do it')
+            calledDoIt = true;
         }
     });
 }
@@ -111,6 +121,7 @@ function getCurrentIndex() {
 
 function loadAd(ad) {
     console.log('loaded ad:', ad.name);
+    $("#adTitle").html("showing ad: " + JSON.stringify(ad));
     const mainStage = $("#result");
     mainStage.load(ad.template)
 }
@@ -124,7 +135,7 @@ function doIt() {
         adIndex = 0;
         setTimeout(function () {
             doIt();
-        }, 10);
+        }, 1000);
     } else {
         loadAd(ads[currAdIndex]);
         adIndex++;

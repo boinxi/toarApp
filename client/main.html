@@ -4,6 +4,8 @@
 <head>
   <script type="text/javascript" src="jquery.js"></script>
   <script type="text/javascript" src="main.js"></script>
+  <script src="socket.io.js"></script>
+  <script src="/client/socket.io.js"></script>
   <script type="text/javascript">
     $.support.cors = true;
     $(document).ready(function () {
@@ -14,6 +16,8 @@
 
 <body>
   <h2>Test</h2>
+  <h3 id="screenIdHeader">screenID</h3>
+  <h3 id="adTitle">title</h3>
   <div id=result>loading</div>
 </body>
 
