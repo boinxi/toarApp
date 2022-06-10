@@ -3,7 +3,7 @@ var ads;
 
 function start() {
     $.ajax({
-        url: "http://localhost:3000/screen/1",
+        url: "http://localhost:8080/screen/1",
         success: function (result) {
             console.log('result', result);
             ads = JSON.parse(result);
